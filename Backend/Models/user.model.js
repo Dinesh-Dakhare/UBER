@@ -1,6 +1,6 @@
 import { Schema, Model, model } from "mongoose";
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const userSchema = new Schema({
   fullname: {
     firstname: {
@@ -21,24 +21,26 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    Select:false
+    Select: false,
   },
   socketId: {
     type: String,
   },
-})
+});
 
-userSchema.methods.generateAuthToken = function(){
-  const token = jwt.sign({_id:this._id},process.env.JWT_SECRET)
-  return token
-}
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "24",
+  });
+  return token;
+};
 
 userSchema.statics.hashPassword = async function (password) {
-  return await bcrypt.hash(password,10)
-}
+  return await bcrypt.hash(password, 10);
+};
 
-userSchema.methods.camparePassword = async function (password){
-  return await bcrypt.compare(password,this.password)
-}
+userSchema.methods.camparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
- export const userModel = model('User',userSchema)
+export const userModel = model("User", userSchema);
