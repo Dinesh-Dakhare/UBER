@@ -11,6 +11,11 @@ export const registerUser = async (req, res, next) => {
   }
   const { fullname, email, password } = req.body;
 
+
+  const existingUser = await userModel.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ message: "Email already registered" });
+  }
   const hashedPassword = await userModel.hashPassword(password);
 
   const user = await createUser({
@@ -63,5 +68,8 @@ export const logoutUser = async (req, res, next) => {
 //get user profile
 export const getUserProfile = async (req, res, next) => {
   const user = req.user;
+  if (!user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
   res.status(200).json({ user });
 };

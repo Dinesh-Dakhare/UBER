@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser"
 import { connectToDb } from "./db/db.js";
 import { userModel } from "./Models/user.model.js";
 import router from "./routes/user.routes.js";
+import captain from "./routes/captain.routes.js";
 const app = express();
 connectToDb();
 app.use(cors());
@@ -18,4 +19,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.use("/users", router);
+app.use("/captains", captain);
+
 export { app };

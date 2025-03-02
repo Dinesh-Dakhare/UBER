@@ -50,7 +50,7 @@ const captianSchema = new Schema({
     vehicleType: {
       type: String,
       required: true,
-      enum: ["car", "motorcycle", "auto"],
+      enum: ["Car", "Motorcycle", "Auto"],
     },
   },
   location: {
@@ -66,7 +66,7 @@ const captianSchema = new Schema({
 
 captianSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: "24",
+    expiresIn: "24h",
   });
   return token;
 };
