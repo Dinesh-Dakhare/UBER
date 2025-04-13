@@ -1,33 +1,38 @@
-import React from 'react'
+import React from "react";
 
-const LocationSearchPanel = (props) => {
-
-
+const LocationSearchPanel = ({
+  suggestions,
+  setCurrentLocationSuggestions,
+  setCurrentLocation,
+  setDestination,
+  activeField,
+}) => {
+  const handleOpenModel = (suggestion) => {
+    if(activeField === "pickup"){
+      
+      setCurrentLocation(suggestion);
+    }else(
+      setDestination(suggestion)
+     
+    )
     
-    const location = [
-        "Bagadi ward near sai mandir kanpur",
-        "killa ward bhadrawati",
-        "mg raod bhadrawati",
-        "chandrapur naka maharashtra",
-        "jawahar Nagar changrapur"
-    ]
-    const handleOpenModel = () =>{
-        props.setVehicleModelOpen(true)
-        props.setOpen(false)
-    }
+  };
   return (
-    <div className='space-y-6'>
-      {location.map((locate)=>{
+    <div className="space-y-6">
+      {suggestions.map((element) => {
         return (
-            <div onClick={handleOpenModel} key={locate} className='flex gap-3'>
-                <i className="ri-map-pin-line bg-[#EEEEEE] rounded-full"></i>
-                <p className='text-medium font-medium'>{locate}</p>
-            </div>
-        )
+          <div
+            onClick={() => handleOpenModel(element.description)}
+            key={element.place_id}
+            className="flex gap-3"
+          >
+            <i className="ri-map-pin-line bg-[#EEEEEE] rounded-full"></i>
+            <p className="text-medium font-medium">{element.description}</p>
+          </div>
+        );
       })}
-       
     </div>
-  )
-}
+  );
+};
 
-export default LocationSearchPanel
+export default LocationSearchPanel;

@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { useContext, useState } from "react";
 import { UserDataContext } from "../context/UserContext";
 
@@ -23,11 +25,19 @@ const UserLogin = () => {
         user
       );
       if (res.status === 201) {
-        alert("Logged In Successfully");
+        // alert("Logged In Successfully");
         setUserData(res.data);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        navigate("/home");
+        gsap.to(window, {
+          duration: 0.5, // Animation duration in seconds
+          opacity: 0, // Fade out
+          onComplete: () => {
+            // Navigate to the new page after the animation completes
+            navigate('/home'); // Replace with your desired route
+          },
+        });
+        // navigate("/home");
       }
     } catch (error) {
       console.log(error);

@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
- import { UserDataContext } from "../context/UserContext";
+import { UserDataContext } from "../context/UserContext";
 import { useState } from "react";
 import axios from "axios";
 const UserProtectedWrapper = ({ children }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-const {user,setUser} = useContext(UserDataContext)
-    const [loading, setLoading] = useState(true);
+  const { user, setUser } = useContext(UserDataContext);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!token) {
       return navigate("/login");
@@ -30,8 +30,6 @@ const {user,setUser} = useContext(UserDataContext)
         localStorage.removeItem("token");
         navigate("/login");
       });
-
-
   }, [token]);
   return <>{children}</>;
 };

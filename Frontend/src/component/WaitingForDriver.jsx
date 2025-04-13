@@ -1,6 +1,19 @@
 import React from "react";
 
-const WaitingForDriver = () => {
+const WaitingForDriver = ({ driverDetail }) => {
+  if (!driverDetail) {
+    return null;
+  }
+  const {
+    fare,
+    pickup,
+    destination,
+    otp,
+    captain: {
+      fullname: { firstname, lastname },
+      vehicle: { plate, color },
+    },
+  } = driverDetail;
   return (
     <div>
       <div className="flex flex-col items-center mt-4">
@@ -12,10 +25,10 @@ const WaitingForDriver = () => {
             alt=""
           />
           <div className="flex flex-col items-end text-sm">
-            
-            <h3 className="uppercase">santh</h3>
-            <p className="uppercase font-semibold text-lg">ka15ak00-0</p>
-            <p className="text-sm">White Suzuki S- Presso LXI</p>
+            <h3 className="uppercase">{`${firstname} ${lastname}`}</h3>
+            <p className="uppercase font-semibold text-lg">{plate}</p>
+            <p className="text-sm">{color}</p>
+            <p className="text-sm">{otp}</p>
           </div>
         </div>
 
@@ -25,9 +38,7 @@ const WaitingForDriver = () => {
               <i className="ri-map-pin-range-fill text-lg bg-[#EEEEEE] rounded-full p-2"></i>
             </span>
 
-            <p className="border-b-1 border-gray-300 pb-2">
-              bagadi ward near sai mandir bhadrawati
-            </p>
+            <p className="border-b-1 border-gray-300 pb-2">{pickup}</p>
           </div>
           <div className="text-lg font-standard flex gap-4 items-center">
             <span>
@@ -35,7 +46,7 @@ const WaitingForDriver = () => {
             </span>
 
             <p className="w-full border-b-1 border-gray-300 pb-2">
-              gandi nagar chandrapur
+              {destination}
             </p>
           </div>
           <div className="text-md font-medium flex gap-4 items-center w-full">
@@ -43,7 +54,7 @@ const WaitingForDriver = () => {
               <i className="ri-bank-card-2-fill text-lg bg-[#EEEEEE] rounded-full p-2"></i>
             </span>
 
-            <p>193.20</p>
+            <p>{fare}</p>
           </div>
         </div>
         <button className="w-full bg-gray-300 p-1 rounded-md font-medium active:bg-gray-400">

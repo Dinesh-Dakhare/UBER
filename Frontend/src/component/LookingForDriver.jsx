@@ -1,6 +1,7 @@
 import React from 'react'
 
-const LookingForDriver = () => {
+const LookingForDriver = ({ride}) => {
+  const {pickup, destination, fare, vehicleType } = ride;
   return (
     <div>
          <div className="flex flex-col items-center mt-4">
@@ -22,7 +23,7 @@ const LookingForDriver = () => {
 
             <p className="border-b-1 border-gray-300 pb-2">
               
-              bagadi ward near sai mandir bhadrawati
+            {pickup}
            
             </p>
           </div>
@@ -32,7 +33,7 @@ const LookingForDriver = () => {
             </span>
 
             <p className="w-full border-b-1 border-gray-300 pb-2">
-              gandi nagar chandrapur
+              {destination}
               
             </p>
           </div>
@@ -42,7 +43,7 @@ const LookingForDriver = () => {
             </span>
 
             <p >
-              193.20
+              {fare}
             
             </p>
           </div>
